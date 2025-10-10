@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GymMangementDAL.Repositories.Interfaces
 {
-    public interface IMemberRepository : IGenericRepository<Member>
+    public interface IUnitOfWork
     {
-        IEnumerable<Session> GetAllSessions();        
-
+        IGenericRepository<TEnity> GetRepository<TEnity>() where TEnity : BaseEntity;
+        int SaveChanges();
     }
 }
