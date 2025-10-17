@@ -9,10 +9,10 @@ namespace GymMangementDAL.Repositories.Interfaces
 {
     public interface ISessionRepository 
     {
-        Session GetByID(int id);
-        IEnumerable<Session> GetAll();
-        int Add(Session session);
-        int Update(Session session);
-        int Delete(int id);
+        IEnumerable<Session> GetAllSessionsWithTrainerAndCategory();
+
+        Session GetSessionWithTrainerAndCategory(int sessionID);
+
+        int GetCountOfBookedSlots(int sessionId);
     }
 }

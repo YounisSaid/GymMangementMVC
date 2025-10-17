@@ -18,6 +18,9 @@ namespace GymMangementDAL.Repositories.Classes
         {
             _context = context;
         }
+
+        public ISessionRepository SessionRepository { get ; set ; }
+
         public IGenericRepository<TEnity> GetRepository<TEnity>() where TEnity : BaseEntity
         {
             string typeName = typeof(TEnity).Name;

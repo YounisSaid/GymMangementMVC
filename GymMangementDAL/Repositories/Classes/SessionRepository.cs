@@ -1,42 +1,39 @@
 ﻿using GymMangementDAL.Contexts;
 using GymMangementDAL.Entities;
 using GymMangementDAL.Repositories.Interfaces;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace GymMangementDAL.Repositories.Classes
 {
-    public class SessionRepository : ISessionRepository
+    public class SessionRepository : GenericRepository<Session>,ISessionRepository
     {
         private readonly GymDbContext _context;
-        public SessionRepository(GymDbContext context)
+        public SessionRepository(GymDbContext context) : base(context)
         {
             _context = context;
         }
-        public int Add(Session session)
+        public IEnumerable<Session> GetAllSessionsWithTrainerAndCategory()
         {
-            _context.Add(session);
-            return _context.SaveChanges();
+           return _context.Sessions
+                .Include(s => s.Trainer)
+                .Include(s => s.Category)
+                .ToList();
         }
 
-        public int Delete(int id)
+        public int GetCountOfBookedSlots(int sessionId)
         {
-            var Session = _context.Sessions.Find(id);
-            if (Session != null)
-            {
-                _context.Sessions.Remove(Session);
-                return _context.SaveChanges();
-            }
-            return 0;
+            return _context.Bookings
+                .Count(b => b.SessionId == sessionId);
         }
 
-        public IEnumerable<Session> GetAll() => _context.Sessions.ToList();
-
-        public Session? GetByID(int id) => _context.Sessions.Find(id);
-
-        public int Update(Session session)
+        public Session GetSessionWithTrainerAndCategory(int sessionID)
         {
-            _context.Update(session);
-            return _context.SaveChanges();
+            return _context.Sessions
+                .Include(s => s.Trainer)
+                .Include(s => s.Category)
+                .FirstOrDefault(x =>x.Id ==sessionID);
         }
+
+        
     }
 }

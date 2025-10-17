@@ -12,14 +12,12 @@
     <Compile Remove="Repositories\Classes\HealthRecordRepository.cs" />
     <Compile Remove="Repositories\Classes\MemberShipRepository.cs" />
     <Compile Remove="Repositories\Classes\PlanRepository.cs" />
-    <Compile Remove="Repositories\Classes\SessionRepository.cs" />
     <Compile Remove="Repositories\Classes\TrainerRepository.cs" />
     <Compile Remove="Repositories\Interfaces\IBookingRepository.cs" />
     <Compile Remove="Repositories\Interfaces\ICategoryRepository.cs" />
     <Compile Remove="Repositories\Interfaces\IHealthRecordRepository.cs" />
     <Compile Remove="Repositories\Interfaces\IMemberShipRepository.cs" />
     <Compile Remove="Repositories\Interfaces\IPlanRepository.cs" />
-    <Compile Remove="Repositories\Interfaces\ISessionRepository.cs" />
     <Compile Remove="Repositories\Interfaces\ITrainerRepository.cs" />
   </ItemGroup>
 
