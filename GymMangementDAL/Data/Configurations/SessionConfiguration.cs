@@ -20,7 +20,7 @@ namespace GymMangementDAL.Data.Configurations
             builder.ToTable(x =>
             {
                 x.HasCheckConstraint("Session_CapacityCheck", "Capacity between 1 and 25 ");
-                x.HasCheckConstraint("Session_EndTimeCheck", "StartDate < EndDate");
+                x.HasCheckConstraint("Session_EndTimeCheck", "StartTime < EndTime");
             });
             
             
