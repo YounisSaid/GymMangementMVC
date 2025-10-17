@@ -39,6 +39,7 @@ namespace GymMangementPLL.Services.Classes
 
                 };
                 _unitOfWork.GetRepository<Trainer>().Add(trainer);
+                _unitOfWork.SaveChanges();
                 return true;
             }
             catch (Exception)
@@ -113,6 +114,7 @@ namespace GymMangementPLL.Services.Classes
             trainer.Speciality = trainerViewModel.Specialization;
 
             _unitOfWork.GetRepository<Trainer>().Update(trainer);
+            _unitOfWork.SaveChanges();
             return true;
         }
 
@@ -157,6 +159,7 @@ namespace GymMangementPLL.Services.Classes
             {
                 
                 _unitOfWork.GetRepository<Trainer>().Delete(trainer);
+                _unitOfWork.SaveChanges();
                 return true;
             }
             catch (Exception)
