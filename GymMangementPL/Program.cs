@@ -4,6 +4,9 @@ using GymMangementDAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using GymMangementDAL.Data.DataSeed;
 using GymMangementPLL;
+using GymMangementPLL.Services.Interfaces;
+using GymMangementPLL.ViewModels.AnlaticalViewModels;
+using GymMangementPLL.Services.Classes;
 
 namespace GymMangementPL
 {
@@ -23,6 +26,11 @@ namespace GymMangementPL
 
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+            builder.Services.AddScoped<IAnalaticalService, AnalaticalService>();
+            builder.Services.AddScoped<IMemberService, MemberService>();
+            builder.Services.AddScoped<ITrainerService, TrainerService>();
+            builder.Services.AddScoped<ISessionService, SessionService>();
+            builder.Services.AddScoped<IPlanService, PlanService>();
             builder.Services.AddAutoMapper(x => x.AddProfile( new MappingProfile()));
 
             var app = builder.Build();
