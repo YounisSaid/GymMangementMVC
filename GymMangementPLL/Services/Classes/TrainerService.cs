@@ -1,7 +1,7 @@
 ﻿using GymMangementDAL.Entities;
 using GymMangementDAL.Repositories.Interfaces;
 using GymMangementPLL.Services.Interfaces;
-using GymMangementPLL.ViewModels.TrainerViewModels;
+using GymMangementPLL.ViewModels;
 
 namespace GymMangementPLL.Services.Classes
 {
@@ -99,7 +99,10 @@ namespace GymMangementPLL.Services.Classes
             {
                 return false;
             }
-            if (IsEmailExist(trainerViewModel.Email) || IsPhoneExist(trainerViewModel.Phone))
+            var emailExists = _unitOfWork.GetRepository<Trainer>().GetAll(m => m.Email.ToLower() == trainerViewModel.Email.ToLower() && m.Id != id).Any();
+
+            var phoneExists = _unitOfWork.GetRepository<Trainer>().GetAll(m => m.Phone == trainerViewModel.Phone && m.Id != id).Any();
+            if (emailExists || phoneExists)
             {
                 return false;
             }
@@ -183,13 +186,13 @@ namespace GymMangementPLL.Services.Classes
         }
         public bool IsEmailExist(string email)
         {
-            var member = _unitOfWork.GetRepository<Member>().GetAll(m => m.Email.ToLower() == email.ToLower()).FirstOrDefault();
+            var member = _unitOfWork.GetRepository<Trainer>().GetAll(m => m.Email.ToLower() == email.ToLower()).FirstOrDefault();
             return member is not null;
         }
 
         public bool IsPhoneExist(string phone)
         {
-            var member = _unitOfWork.GetRepository<Member>().GetAll(m => m.Phone == phone).FirstOrDefault();
+            var member = _unitOfWork.GetRepository<Trainer>().GetAll(m => m.Phone == phone).FirstOrDefault();
             return member is not null;
         }
 

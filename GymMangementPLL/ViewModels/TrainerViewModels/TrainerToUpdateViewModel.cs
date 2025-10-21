@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymMangementPLL.ViewModels.TrainerViewModels
+namespace GymMangementPLL.ViewModels
 {
     public class TrainerToUpdateViewModel
     {
@@ -45,7 +45,7 @@ namespace GymMangementPLL.ViewModels.TrainerViewModels
         [Range(1, int.MaxValue, ErrorMessage = "Building number must be > 1 character.")]
         public string BuildingNumber { get; set; } = null!;
         [Required(ErrorMessage = "Specialization is required.")]
-        public Speicalites Specialization { get; set; }
+        public Speicalites? Specialization { get; set; }
 
     }
 }
