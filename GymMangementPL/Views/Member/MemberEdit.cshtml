@@ -1,0 +1,115 @@
+﻿@model MemberToUpdateViewModel
+
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card card-details border-0 p-2 shadow">
+
+                @* Profile Header (Photo and Name) *@
+                <div class="card-body text-center">
+
+                    @* Photo Display *@
+                    <div class="text-center mt-3">
+                       
+                    @if (!string.IsNullOrEmpty(Model.Photo))
+                    {
+
+                        <img src="~/images/@Model.Photo"
+                             alt="@Model.Name"
+                             class="rounded-circle"
+                             style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #fff; margin-bottom: 10px;" />
+                    }
+                    else
+                    {
+                        <img src="~/images/@Model.Photo"
+                             alt="Default Avatar"
+                             class="rounded-circle"
+                             style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #fff; margin-bottom: 10px;" />
+                    }
+                    </div>
+                    @* Name Display *@
+                    <h2 class="mb-1 text-primary-color">@Model.Name</h2>
+                </div>
+
+                @* Edit Form *@
+                <form asp-controller="Member" asp-action="MemberEdit" method="post">
+
+                    @* Hidden Fields for non-editable data needed on POST *@
+                    <input asp-for="Photo" hidden readonly />
+                    <input asp-for="Name" hidden readonly />
+
+                    <div class="mt-4 text-start">
+                        <div class="row g-3">
+
+                            @* 1. Email (Full Width) *@
+                            <div class="col-12">
+                                <div class="p-3 bg-light rounded">
+                                    <small class="text-muted d-block mb-1">Email</small>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            @* 2. Phone (col-6) *@
+                            <div class="col-6">
+                                <div class="p-3 bg-light rounded">
+                                    <small class="text-muted d-block mb-1">Phone</small>
+                                    <input asp-for="Phone" class="form-control" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            @* 3. Building Number (col-6) *@
+                            <div class="col-6">
+                                <div class="p-3 bg-light rounded">
+                                    <small class="text-muted d-block mb-1">Building Number</small>
+                                    <input asp-for="BuildingNumber" class="form-control" />
+                                    <span asp-validation-for="BuildingNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            @* 4. City (col-6) *@
+                            <div class="col-6">
+                                <div class="p-3 bg-light rounded">
+                                    <small class="text-muted d-block mb-1">City</small>
+                                    <input asp-for="City" class="form-control" />
+                                    <span asp-validation-for="City" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            @* 5. Street (col-6) *@
+                            <div class="col-6">
+                                <div class="p-3 bg-light rounded">
+                                    <small class="text-muted d-block mb-1">Street</small>
+                                    <input asp-for="Street" class="form-control" />
+                                    <span asp-validation-for="Street" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div> @* End row g-3 *@
+                    </div> @* End mt-4 text-start *@
+
+                    @* Footer (Buttons) *@
+                    <div class="d-flex justify-content-between gap-2 mt-3 px-3 pb-3">
+                        @* Back Button *@
+                        <a asp-controller="Member" asp-action="Index" class="btn btn-fill flex-fill">Back to List</a>
+
+                        @* Submit Button *@
+                       
+                        <button type="submit" class="btn btn-fill flex-fill">Done</button>
+                    </div>
+                    
+                </form>
+            </div> @* End card *@
+        </div> @* End col-md-6 *@
+    </div> @* End row justify-content-center *@
+</div> @* End container *@
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

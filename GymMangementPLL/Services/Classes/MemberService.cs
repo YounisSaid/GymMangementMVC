@@ -1,10 +1,11 @@
 ﻿using GymMangementDAL.Entities;
 using GymMangementDAL.Repositories.Interfaces;
 using GymMangementPLL.Services.Interfaces;
-using GymMangementPLL.ViewModels.MemberViewModels;
+using GymMangementPLL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -118,7 +119,10 @@ namespace GymMangementPLL.Services.Classes
             {
                 return false;
             }
-            if (IsEmailExist(memberViewModel.Email) || IsPhoneExist(memberViewModel.Phone))
+            var emailExists = _unitOfWork.GetRepository<Member>().GetAll(m => m.Email.ToLower() == memberViewModel.Email.ToLower() && m.Id != id).Any();
+
+            var phoneExists =  _unitOfWork.GetRepository<Member>().GetAll(m => m.Phone == memberViewModel.Phone && m.Id !=id).Any();
+            if (emailExists  || phoneExists )
             {
                 return false;
             }

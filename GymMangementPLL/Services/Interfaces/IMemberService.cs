@@ -1,5 +1,5 @@
 ﻿using GymMangementDAL.Entities;
-using GymMangementPLL.ViewModels.MemberViewModels;
+using GymMangementPLL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

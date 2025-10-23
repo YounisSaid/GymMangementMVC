@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymMangementPLL.ViewModels.MemberViewModels
+namespace GymMangementPLL.ViewModels
 {
     public class MemberToUpdateViewModel
     {
@@ -46,7 +46,7 @@ namespace GymMangementPLL.ViewModels.MemberViewModels
         [Range(1, int.MaxValue, ErrorMessage = "Building number must be > 1 character.")]
         public string BuildingNumber { get; set; } = null!;
 
-        [Required(ErrorMessage = "Health Record is required.")]
-        public HealthRecordViewModel HealthRecordViewModel { get; set; } = null!;
+        
+        public HealthRecordViewModel? HealthRecordViewModel { get; set; } 
     }
 }

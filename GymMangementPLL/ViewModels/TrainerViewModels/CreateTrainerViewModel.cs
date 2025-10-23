@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymMangementPLL.ViewModels.TrainerViewModels
+namespace GymMangementPLL.ViewModels
 {
     public class CreateTrainerViewModel
     {
@@ -48,6 +48,6 @@ namespace GymMangementPLL.ViewModels.TrainerViewModels
         public string BuildingNumber { get; set; } = null!;
 
         [Required(ErrorMessage = "Specialization is required.")]
-        public Speicalites Specialization { get; set; } 
+        public Speicalites? Specialization { get; set; } 
     }
 }

@@ -1,18 +1,16 @@
-﻿@model AnalaticalViewModel
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
-	Layout = "~/Views/Shared/_Layout.cshtml"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
-    <div class="col-md-6 col-lg-7 col-12">
+    <div class="col-md-7 col-lg-7 col-12">
         <div class="info mt-4">
             <header class="text-black-alternative">
                 <h2 class="fw-bolder display-2 mb-4">
                     Your body can
                     <span class="text-primary-color">stand almost</span> anything
                 </h2>
-
                 <p class="mb-6">
                     It's your mind that needs convincing. Push past your limits,
                     stay <br />
@@ -70,7 +68,6 @@
                 <button class="get-started bg-primary-color text-white btn rounded-5 fw-medium px-3 py-2 me-5 border-2 border-primary-color">
                     Get Started
                 </button>
-
                 <button class="explore-more border-primary-color btn rounded-5 fw-medium px-3 py-2 border-2 text-primary-color fw-medium">
                     Explore More
                 </button>
@@ -78,9 +75,191 @@
         </div>
     </div>
 
-    <div class="col-md-1 offset-md-2 col-12 order-first order-md-last">
-        <div class="character d-md-block d-flex justify-content-center">
-            <img src="./images/Theo Vance.jpg" alt="Theo Vance" />
+    <div class="col-md-5 col-12 order-first order-md-last d-flex justify-content-center">
+        <div class="character">
+            <img src="~/images/Theo Vance.jpg" alt="Theo Vance" class="img-fluid" />
         </div>
     </div>
 </div>
+
+<main>
+    <section class="about my-5 text-black-alternative">
+        <div class="container">
+            <div class="row g-5 justify-content-center align-items-center">
+
+                <div class="col-12 col-lg-6">
+                    <div class="characters position-relative about-characters-container">
+
+                        <div class="image main-character-1">
+                            <img class="img-fluid" src="~/images/about p1.jpg" alt="Person 1" />
+                        </div>
+
+                        <div class="image character-2 position-absolute d-none d-lg-block">
+                            <img class="img-fluid" src="~/images/about p2.jpg" alt="Person 2" />
+                        </div>
+
+                        <div class="image character-3 position-absolute d-none d-lg-block">
+                            <img class="img-fluid" src="~/images/about p3.jpg" alt="Person 3" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                    <div class="title d-flex justify-content-start align-items-start gap-2">
+                        <img class="" src="~/images/dumbbell.jpg" alt="dumbbell icon" />
+                        <h2 class="text-primary-color fs-5">About Us</h2>
+                    </div>
+
+                    <header>
+                        <p class="fw-bolder display-6 mb-4">
+                            EMPOWERING YOU TO ACHIEVE
+                            <span class="text-primary-color">YOUR FITNESS</span> GOALS
+                        </p>
+                        <p class="text">
+                            We believe fitness is more than just a workout—it's a
+                            lifestyle. With top-of- the-line facilities, certified
+                            trainers, and a supportive community, we're here to inspire
+                            and guide you every step of the way.
+                        </p>
+                    </header>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="workout bg-dark py-5 text-white">
+        <div class="container">
+            <div class="title text-center mb-5">
+                <h2 class="text-primary-color text-uppercase fs-5 mb-2">Workouts</h2>
+                <p class="fw-bolder display-5 mb-4">
+                    Transform Your Body with Our Dynamic Upcoming Workouts
+                </p>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-3 gy-4 gx-md-4">
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="~/images/workout 1.jpg" class="card-img-top" alt="Group Workout" />
+                        <div class="card-footer bg-white">
+                            <h5 class="card-title text-black-alternative text-uppercase fw-bolder">
+                                group workout
+                            </h5>
+                            <a href="#" class="text-primary-color fw-medium">Explore</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="~/images/workout 2.jpg" class="card-img-top" alt="Personal Training" />
+                        <div class="card-footer bg-white">
+                            <h5 class="card-title text-black-alternative text-uppercase fw-bolder">
+                                personal training
+                            </h5>
+                            <a href="#" class="text-primary-color fw-medium">Explore</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="~/images/workout 3.jpg" class="card-img-top" alt="Yoga Class" />
+                        <div class="card-footer bg-white">
+                            <h5 class="card-title text-black-alternative text-uppercase fw-bolder">
+                                yoga class
+                            </h5>
+                            <a href="#" class="text-primary-color fw-medium">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="indicators d-flex justify-content-center gap-2 mt-5">
+                <div class="indicator bg-secondary" style="width: 10px; height: 10px; border-radius: 50%;"></div>
+                <div class="indicator active bg-primary-color" style="width: 10px; height: 10px; border-radius: 50%;"></div>
+                <div class="indicator bg-secondary" style="width: 10px; height: 10px; border-radius: 50%;"></div>
+                <div class="indicator bg-secondary" style="width: 10px; height: 10px; border-radius: 50%;"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us my-5 text-black-alternative">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-lg-2 g-5 align-items-center">
+                <div class="col">
+                    <div class="info">
+                        <div class="title d-flex justify-content-start align-items-start gap-2">
+                            <img class="" src="~/images/dumbbell.jpg" alt="dumbbell icon" />
+                            <h2 class="text-primary-color fs-5">Why Us</h2>
+                        </div>
+
+                        <header>
+                            <p class="fw-bolder display-5 mb-4">
+                                Elevate fitness with<br />
+                                <span class="text-primary-color">the best</span> way
+                                possible
+                            </p>
+                            <p class="text">
+                                We believe fitness is more than just a workout—it's a
+                                lifestyle. With top-of- the-line facilities, certified
+                                trainers, and a supportive community, we're here to inspire
+                                and guide you every step of the way.
+                            </p>
+                        </header>
+
+                        <ul class="featutes list-unstyled mt-6">
+                            <li class="feature d-flex gap-4 align-items-center mb-4">
+                                <div class="count fw-bolder fs-3 text-primary-color">01</div>
+                                <div class="text">
+                                    <h3 class="text-capitalize fw-bold">
+                                        personalized fitness plans
+                                    </h3>
+                                    <p class="fs-18">
+                                        We tailor every workout to fit your unique goals and
+                                        fitness level ensuring that you make the most progress.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li class="feature d-flex gap-4 align-items-center mb-4">
+                                <div class="count fw-bolder fs-3 text-primary-color">02</div>
+                                <div class="text">
+                                    <h3 class="text-capitalize fw-bold">
+                                        certified and experienced trainers
+                                    </h3>
+                                    <p class="fs-18">
+                                        Our team of experts provides professional guidance and
+                                        motivation to keep you on track.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li class="feature d-flex gap-4 align-items-center">
+                                <div class="count fw-bolder fs-3 text-primary-color">03</div>
+                                <div class="text">
+                                    <h3 class="text-capitalize fw-bold">
+                                        supportive community environment
+                                    </h3>
+                                    <p class="fs-18">
+                                        Join a network of motivated individuals who will help
+                                        you stay inspired and committed to your fitness journey.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col d-none d-lg-block">
+                    <div class="characters">
+                        <div class="images position-relative d-flex justify-content-center align-items-center">
+                            <img class="img-fluid" src="~/images/why us images.svg" alt="characters" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
