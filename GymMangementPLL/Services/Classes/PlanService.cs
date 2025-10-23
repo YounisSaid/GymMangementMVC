@@ -1,4 +1,4 @@
-﻿using GymManagementBLL.ViewModels.PlanViewModels;
+﻿using GymManagementBLL.ViewModels;
 using GymMangementDAL.Entities;
 using GymMangementDAL.Repositories.Interfaces;
 using GymMangementPLL.Services.Interfaces;
@@ -30,7 +30,7 @@ namespace GymMangementPLL.Services.Classes
         public IEnumerable<PlanViewModel> GetAllPlans()
         {
             var plans = _unitOfWork.GetRepository<Plan>().GetAll();
-            if (plans == null||plans.Any())
+            if (plans == null||!plans.Any())
             {
                 return [];
             }

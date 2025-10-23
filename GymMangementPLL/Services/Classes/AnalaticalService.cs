@@ -1,8 +1,9 @@
-﻿using AutoMapper.Execution;
+﻿
 using GymMangementDAL.Entities;
 using GymMangementDAL.Repositories.Interfaces;
 using GymMangementPLL.Services.Interfaces;
 using GymMangementPLL.ViewModels.AnlaticalViewModels;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace GymMangementPLL.Services.Classes
             return new AnalaticalViewModel
             {
                 ActiveMembers = _unitOfWork.GetRepository<MemberShip>().GetAll(x=>x.Status=="Active").Count(),
-                TotalMembers = _unitOfWork.GetRepository<MemberShip>().GetAll().Count(),
+                TotalMembers = _unitOfWork.GetRepository<Member>().GetAll().Count(),
                 TotalTrainers = _unitOfWork.GetRepository<Trainer>().GetAll().Count(),
                 UpcomingSessions = SessionRepo.GetAll(s => s.StartDate > DateTime.Now).Count(),
                 OngoingSessions = SessionRepo.GetAll(s => s.StartDate <= DateTime.Now && s.EndDate >= DateTime.Now).Count(),

@@ -1,4 +1,4 @@
-﻿using GymManagementBLL.ViewModels.SessionViewModels;
+﻿using GymManagementBLL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +9,15 @@ namespace GymMangementPLL.Services.Interfaces
 {
     public interface ISessionService
     {
-        IEnumerable<SessionViewModel> GetAllSessions();
+        IEnumerable<SessionViewModel>GetAllSessions();
 
         SessionViewModel? GetSessionByID(int id);
         UpdateSessionViewModel? GetSessionToUpdate(int id); 
         bool CreateSession(CreateSessionViewModel ViewModel);
         bool UpdateSession(int id,UpdateSessionViewModel ViewModel);
         bool RemoveSession(int id);
+        IEnumerable<TrainerSelectViewModel> LoadTrainersDropDown();
+
+        IEnumerable<CategorySelectViewModel> LoadCategoriesDropDown();
     }
 }
