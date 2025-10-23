@@ -42,7 +42,7 @@ namespace GymMangementPLL.ViewModels
         public string City { get; set; } = null!;
 
         [Required(ErrorMessage = "Building number is required.")]
-        [Range(1, int.MaxValue, ErrorMessage = "Building number must be > 1 character.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Building number must be > 1")]
         public string BuildingNumber { get; set; } = null!;
         [Required(ErrorMessage = "Specialization is required.")]
         public Speicalites? Specialization { get; set; }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GymManagementBLL.ViewModels.SessionViewModels;
+using GymManagementBLL.ViewModels;
 using GymMangementDAL.Entities;
 using GymMangementDAL.Repositories.Interfaces;
 using GymMangementPLL.Services.Interfaces;
@@ -17,11 +17,13 @@ namespace GymMangementPLL.Services.Classes
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ISessionRepository _sessionRepository;
 
-        public SessionService(IUnitOfWork unitOfWork,IMapper mapper)
+        public SessionService(IUnitOfWork unitOfWork,IMapper mapper,ISessionRepository sessionRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _sessionRepository = sessionRepository;
         }
 
         public bool CreateSession(CreateSessionViewModel ViewModel)
@@ -48,7 +50,7 @@ namespace GymMangementPLL.Services.Classes
 
         public IEnumerable<SessionViewModel> GetAllSessions()
         {
-            var sessions = _unitOfWork.SessionRepository.GetAllSessionsWithTrainerAndCategory()
+            var sessions = _sessionRepository.GetAllSessionsWithTrainerAndCategory()
                                                         .OrderByDescending(s => s.StartDate); 
 
             if (sessions is null || !sessions.Any())
@@ -60,7 +62,7 @@ namespace GymMangementPLL.Services.Classes
 
             foreach(var session in mappedSessions)
             {
-                session.AvailableSlots = session.Capacity - _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id);
+                session.AvailableSlots = session.Capacity - _sessionRepository.GetCountOfBookedSlots(session.Id);
             }
 
             return mappedSessions;
@@ -69,7 +71,7 @@ namespace GymMangementPLL.Services.Classes
 
         public SessionViewModel? GetSessionByID(int id)
         {
-            var session = _unitOfWork.SessionRepository.GetSessionWithTrainerAndCategory(id);
+            var session = _sessionRepository.GetSessionWithTrainerAndCategory(id);
                                                         
 
             if (session is null )
@@ -79,7 +81,7 @@ namespace GymMangementPLL.Services.Classes
 
             var mappedSession = _mapper.Map<SessionViewModel>(session);
 
-            mappedSession.AvailableSlots = mappedSession.Capacity - _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id);
+            mappedSession.AvailableSlots = mappedSession.Capacity - _sessionRepository.GetCountOfBookedSlots(session.Id);
             
 
             return mappedSession;
@@ -98,8 +100,11 @@ namespace GymMangementPLL.Services.Classes
                 return false;
             }
             
-             _mapper.Map<Session>(ViewModel);
-            session.UpdatedAt = DateTime.Now;
+            session.TrainerId = ViewModel.TrainerId;
+            session.StartDate = ViewModel.StartDate;
+            session.EndDate = ViewModel.EndDate;
+            session.Description = ViewModel.Description;
+            session.UpdatedAt = DateTime.UtcNow;
 
             _unitOfWork.GetRepository<Session>().Update(session);
             return _unitOfWork.SaveChanges() > 0;
@@ -128,14 +133,26 @@ namespace GymMangementPLL.Services.Classes
             _unitOfWork.GetRepository<Session>().Delete(session);
             return _unitOfWork.SaveChanges() > 0;
         }
+        public IEnumerable<TrainerSelectViewModel> LoadTrainersDropDown()
+        {
+            var trainers = _unitOfWork.GetRepository<Trainer>().GetAll();
+            return _mapper.Map<IEnumerable<TrainerSelectViewModel>>(trainers);
+        }
+
+        public IEnumerable<CategorySelectViewModel> LoadCategoriesDropDown()
+        {
+            var categories = _unitOfWork.GetRepository<Category>().GetAll();
+            return _mapper.Map<IEnumerable<CategorySelectViewModel>>(categories);
+        }
         #region Helper Methods
         private bool IsValidSessionTime(DateTime startTime, DateTime endTime)
         {
-            return startTime < endTime &&
-                   startTime >= DateTime.Now &&
-                   endTime > DateTime.Now;
-        }
+            DateTime now = DateTime.UtcNow;
 
+            return startTime < endTime &&
+                   startTime > now &&  
+                   endTime > now;      
+        }
 
         private bool IsTrainerExist(int trainerId)
         {
@@ -160,10 +177,13 @@ namespace GymMangementPLL.Services.Classes
             {
                 return false;
             }
-
+            if (session.StartDate <= DateTime.Now && session.EndDate >= DateTime.Now)
+            {
+                return false;
+            }
             // session has booked slots
 
-            var bookedSlots = _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id) > 0;
+            var bookedSlots = _sessionRepository.GetCountOfBookedSlots(session.Id) > 0;
 
             if(bookedSlots)
             {
@@ -189,7 +209,7 @@ namespace GymMangementPLL.Services.Classes
                 return false;
             }
             // session has booked slots
-            var bookedSlots = _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id) > 0;
+            var bookedSlots = _sessionRepository.GetCountOfBookedSlots(session.Id) > 0;
             if (bookedSlots)
             {
                 return false;
@@ -198,6 +218,8 @@ namespace GymMangementPLL.Services.Classes
         }
 
         
+
+
 
 
         #endregion
