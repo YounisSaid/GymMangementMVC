@@ -1,16 +1,14 @@
-﻿using GymMangementDAL.Entities;
-using GymMangementDAL.Entities.Enums;
-using System;
-using System.Collections.Generic;
+﻿using GymMangementDAL.Entities.Enums;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymMangementPLL.ViewModels
 {
     public class CreateMemberViewModel
     {
+        [Required(ErrorMessage = "Photo is required.")]
+        [Display(Name = "Profile Photo")]
+        public IFormFile FormFile { get; set; } = null!;
         [Required(ErrorMessage = "Name is required.")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 50 characters.")]
         [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Name must contain only letters.")]

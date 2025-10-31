@@ -7,6 +7,10 @@ using GymMangementPLL;
 using GymMangementPLL.Services.Interfaces;
 using GymMangementPLL.ViewModels.AnlaticalViewModels;
 using GymMangementPLL.Services.Classes;
+using GymManagementBLL.Services.Classes;
+using GymMangementPLL.Services.AttachmentService;
+using GymMangementDAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace GymMangementPL
 {
@@ -26,21 +30,38 @@ namespace GymMangementPL
 
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+            builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+            builder.Services.AddScoped<IMembershipRepository,MembershipRepository>();
+            builder.Services.AddScoped<IBookingRepository, BookingRepository>();
             builder.Services.AddScoped<IAnalaticalService, AnalaticalService>();
             builder.Services.AddScoped<IMemberService, MemberService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddScoped<ISessionService, SessionService>();
             builder.Services.AddScoped<IPlanService, PlanService>();
+            builder.Services.AddScoped<IBookingService,BookingService>();
+            builder.Services.AddScoped<IMembershipService, MembershipService>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddAutoMapper(x => x.AddProfile( new MappingProfile()));
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
+            {
+
+               
+            }).AddEntityFrameworkStores<GymDbContext>(); 
+            
             var app = builder.Build();
             #region Data Seeding
-            using (var scope = app.Services.CreateScope())
-            {
+            using var scope = app.Services.CreateScope();
+            
                 var services = scope.ServiceProvider;
                 var gymDbContext = services.GetRequiredService<GymDbContext>();
+                var userManger = services.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManger = services.GetRequiredService<RoleManager<IdentityRole>>();
+
                 GymDataSeeding.SeedData(gymDbContext);
-            }
+                IdentitySeeding.SeedData(userManger,roleManger);
+            
             #endregion
 
             // Configure the HTTP request pipeline.
@@ -53,13 +74,14 @@ namespace GymMangementPL
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Account}/{action=Login}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

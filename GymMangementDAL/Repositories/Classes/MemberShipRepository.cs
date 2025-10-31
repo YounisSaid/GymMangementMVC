@@ -1,47 +1,24 @@
-﻿using GymMangementDAL.Contexts;
+﻿
+using GymMangementDAL.Contexts;
 using GymMangementDAL.Entities;
+
 using GymMangementDAL.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymMangementDAL.Repositories.Classes
 {
-    public class MemberShipRepository : IMemberShipRepository
-    {
-        private readonly GymDbContext _context;
-        public MemberShipRepository(GymDbContext context)
-        {
-            _context = context;
-        }
-        public int Add(MemberShip memberShip)
-        {
-            _context.Add(memberShip);
-            return _context.SaveChanges();
-        }
+	public class MembershipRepository : GenericRepository<MemberShip>, IMembershipRepository
+	{
+		private readonly GymDbContext _dbContext;
 
-        public int Delete(int id)
-        {
-            var MemberShip = _context.MemberShips.Find(id);
-            if (MemberShip != null)
-            {
-                _context.MemberShips.Remove(MemberShip);
-                return _context.SaveChanges();
-            }
-            return 0;
-        }
+		public MembershipRepository(GymDbContext dbContext) : base(dbContext)
+		{
+			_dbContext = dbContext;
+		}
 
-        public IEnumerable<MemberShip> GetAll() => _context.MemberShips.ToList();
-
-        public MemberShip? GetByID(int id) => _context.MemberShips.Find(id);
-
-        public int Update(MemberShip memberShip)
-        {
-            _context.Update(memberShip);
-            return _context.SaveChanges();
-        }
-       
-    }
+		public IEnumerable<MemberShip> GetAllMembershipsWithMemberAndPlan(Func<MemberShip, bool> predicate)
+		{
+			return _dbContext.MemberShips.Include(X => X.Plan).Include(X => X.Member).Where(predicate).ToList();
+		}
+	}
 }
