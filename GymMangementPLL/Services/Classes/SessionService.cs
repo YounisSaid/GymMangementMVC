@@ -4,13 +4,6 @@ using GymMangementDAL.Entities;
 using GymMangementDAL.Repositories.Interfaces;
 using GymMangementPLL.Services.Interfaces;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
-
 namespace GymMangementPLL.Services.Classes
 {
     public class SessionService : ISessionService
@@ -177,7 +170,7 @@ namespace GymMangementPLL.Services.Classes
             {
                 return false;
             }
-            if (session.StartDate <= DateTime.Now && session.EndDate >= DateTime.Now)
+            if (session.StartDate <= DateTime.UtcNow && session.EndDate >= DateTime.UtcNow)
             {
                 return false;
             }
@@ -204,9 +197,9 @@ namespace GymMangementPLL.Services.Classes
                 return false;
             }
             // session already ended
-            if (session.EndDate < DateTime.Now)
+            if (session.EndDate < DateTime.UtcNow)
             {
-                return false;
+                return true;
             }
             // session has booked slots
             var bookedSlots = _sessionRepository.GetCountOfBookedSlots(session.Id) > 0;

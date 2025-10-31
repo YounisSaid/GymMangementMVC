@@ -1,9 +1,11 @@
 ﻿using GymMangementPLL.Services.Interfaces;
 using GymMangementPLL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymMangementPL.Controllers
 {
+    [Authorize]
     public class MemberController : Controller
     {
         private readonly IMemberService _memberService;
@@ -84,7 +86,7 @@ namespace GymMangementPL.Controllers
                
                 return View(input);
             }
-
+          
             bool updateMember = _memberService.UpdateMember(Id,input);
 
             if (updateMember)

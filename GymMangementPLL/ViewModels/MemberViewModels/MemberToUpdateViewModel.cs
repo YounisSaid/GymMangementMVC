@@ -1,17 +1,13 @@
-﻿using GymMangementDAL.Entities;
-using GymMangementDAL.Entities.Enums;
-using System;
-using System.Collections.Generic;
+﻿using GymMangementDAL.Entities.Enums;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymMangementPLL.ViewModels
 {
     public class MemberToUpdateViewModel
     {
         public string Name { get; set; } = null!;
+
         public string? Photo { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]
@@ -47,6 +43,7 @@ namespace GymMangementPLL.ViewModels
         public string BuildingNumber { get; set; } = null!;
 
         
-        public HealthRecordViewModel? HealthRecordViewModel { get; set; } 
+        public HealthRecordViewModel? HealthRecordViewModel { get; set; }
+        public IFormFile? PhotoFile { get; set; }
     }
 }

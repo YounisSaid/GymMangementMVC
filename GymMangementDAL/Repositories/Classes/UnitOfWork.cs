@@ -1,11 +1,6 @@
 ﻿using GymMangementDAL.Contexts;
 using GymMangementDAL.Entities;
 using GymMangementDAL.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymMangementDAL.Repositories.Classes
 {
@@ -20,6 +15,8 @@ namespace GymMangementDAL.Repositories.Classes
         }
 
         public ISessionRepository SessionRepository { get ; set ; }
+        public IBookingRepository BookingRepository { get ; set ; }
+        public IMembershipRepository MembershipRepository { get ; set ; }
 
         public IGenericRepository<TEnity> GetRepository<TEnity>() where TEnity : BaseEntity
         {
