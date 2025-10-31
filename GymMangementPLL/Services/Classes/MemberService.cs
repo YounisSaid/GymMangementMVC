@@ -1,23 +1,20 @@
 ﻿using GymMangementDAL.Entities;
 using GymMangementDAL.Repositories.Interfaces;
+using GymMangementPLL.Services.AttachmentService;
 using GymMangementPLL.Services.Interfaces;
 using GymMangementPLL.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymMangementPLL.Services.Classes
 {
     public class MemberService : IMemberService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAttachmentService _attachmentService;
 
-        public MemberService(IUnitOfWork unitOfWork)
+        public MemberService(IUnitOfWork unitOfWork,IAttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
+            _attachmentService = attachmentService;
         }
 
         public bool CreateMember(CreateMemberViewModel memberViewModel)
@@ -28,6 +25,10 @@ namespace GymMangementPLL.Services.Classes
                 {
                     return false;
                 }
+                var PhotoName = _attachmentService.Upload("members", memberViewModel.FormFile);
+
+                if(string.IsNullOrEmpty(PhotoName))  return false;
+
                 var member = new Member
                 {
                     Name = memberViewModel.Name,
@@ -47,11 +48,17 @@ namespace GymMangementPLL.Services.Classes
                         Weight = memberViewModel.HealthRecordViewModel.Weight,
                         BloodType = memberViewModel.HealthRecordViewModel.BloodType,
                         Note = memberViewModel.HealthRecordViewModel.Note
-                    }
+                    },
+                    Photo = PhotoName
                 };
                 _unitOfWork.GetRepository<Member>().Add(member);
-                _unitOfWork.SaveChanges();
-                return true;
+               var result = _unitOfWork.SaveChanges() > 0;
+                if(!result)
+                {
+                    _attachmentService.Delete(member.Photo,"members");
+                    return false;
+                }
+                return result;
             }
             catch (Exception)
             {
@@ -116,18 +123,40 @@ namespace GymMangementPLL.Services.Classes
         {
             var member = _unitOfWork.GetRepository<Member>().GetByID(id);
             if (member is null)
-            {
                 return false;
-            }
-            var emailExists = _unitOfWork.GetRepository<Member>().GetAll(m => m.Email.ToLower() == memberViewModel.Email.ToLower() && m.Id != id).Any();
 
-            var phoneExists =  _unitOfWork.GetRepository<Member>().GetAll(m => m.Phone == memberViewModel.Phone && m.Id !=id).Any();
-            if (emailExists  || phoneExists )
-            {
+            // Check for duplicates
+            var emailExists = _unitOfWork.GetRepository<Member>()
+                .GetAll(m => m.Email.ToLower() == memberViewModel.Email.ToLower() && m.Id != id)
+                .Any();
+
+            var phoneExists = _unitOfWork.GetRepository<Member>()
+                .GetAll(m => m.Phone == memberViewModel.Phone && m.Id != id)
+                .Any();
+
+            if (emailExists || phoneExists)
                 return false;
+
+            if (memberViewModel.PhotoFile != null && memberViewModel.PhotoFile.Length > 0)
+            {
+                // 1️⃣ Try uploading the new photo first
+                var uploadedPhoto = _attachmentService.Upload("members", memberViewModel.PhotoFile);
+
+                if (uploadedPhoto != null)
+                {
+                    if (!string.IsNullOrEmpty(member.Photo))
+                        _attachmentService.Delete(member.Photo, "members");
+
+                    member.Photo = uploadedPhoto;
+                }
+                else
+                {
+                    
+                    Console.WriteLine("Photo upload failed, skipping deletion.");
+                    return false;
+                }
             }
 
-            member.Name = memberViewModel.Name;
             member.Email = memberViewModel.Email;
             member.Phone = memberViewModel.Phone;
             member.Address.Street = memberViewModel.Street;
@@ -137,6 +166,7 @@ namespace GymMangementPLL.Services.Classes
 
             _unitOfWork.GetRepository<Member>().Update(member);
             _unitOfWork.SaveChanges();
+
             return true;
         }
 
@@ -204,8 +234,13 @@ namespace GymMangementPLL.Services.Classes
                     }
                 }
                 _unitOfWork.GetRepository<Member>().Delete(member);
-                _unitOfWork.SaveChanges();
-                return true;
+                var result = _unitOfWork.SaveChanges() >0 ;
+                if(result)
+                {
+                    _attachmentService.Delete(member.Photo, "members");
+                    return false;
+                }
+                return result;
             }
             catch (Exception)
             {

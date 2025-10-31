@@ -2,11 +2,6 @@
 using GymManagementBLL.ViewModels;
 
 using GymMangementDAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymMangementPLL
 {
@@ -31,6 +26,10 @@ namespace GymMangementPLL
             CreateMap<Trainer, TrainerSelectViewModel>();
             CreateMap<Category, CategorySelectViewModel>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CategoryName));
+            CreateMap<Plan, PlanSelectListViewModel>();
+            CreateMap<Member, MemberSelectListViewModel>();
+            CreateMap<MemberShip,MemberShipViewModel>();
+            CreateMap<CreateMemberShipViewModel, MemberShip>();
 
 
 
