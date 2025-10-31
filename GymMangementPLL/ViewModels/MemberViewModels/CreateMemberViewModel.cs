@@ -11,7 +11,7 @@ namespace GymMangementPLL.ViewModels
         public IFormFile FormFile { get; set; } = null!;
         [Required(ErrorMessage = "Name is required.")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 50 characters.")]
-        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Name must contain only letters.")]
+        [RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Name must contain only letters and spaces.")]
         public string Name { get; set; } = null!;
         public string? Photo { get; set; }
 

@@ -209,44 +209,39 @@ namespace GymMangementPLL.Services.Classes
             return memberViewModel;
         }
 
-        public bool RemoveMember(int id)
+        public bool RemoveMember(int MemberId)
         {
-            var member = _unitOfWork.GetRepository<Member>().GetByID(id);
-            if (member is null)
-            {
-                return false;
-            }
+            var Repo = _unitOfWork.GetRepository<Member>();
+            var Member = Repo.GetByID(MemberId);
+            if (Member is null) return false;
+            var sessionIds = _unitOfWork.GetRepository<Booking>().GetAll(
+               b => b.MemberId == MemberId).Select(S => S.SessionId); 
 
-            var activebooking = _unitOfWork.GetRepository<Booking>().GetAll(b => b.MemberId == id && b.Session.StartDate > DateTime.Now);
-            if (activebooking.Any())
-            {
-                return false;
-            }
+            var hasFutureSessions = _unitOfWork.GetRepository<Session>()
+                .GetAll(S => sessionIds.Contains(S.Id) && S.StartDate > DateTime.Now).Any();
 
-            var activeMembership = _unitOfWork.GetRepository<MemberShip>().GetAll(ms => ms.MemberId == id ).ToList();
+            if (hasFutureSessions) return false;
+
+            var MemberShips = _unitOfWork.GetRepository<MemberShip>().GetAll(X => X.MemberId == MemberId);
+
             try
             {
-                if (activeMembership.Any())
+                if (MemberShips.Any())
                 {
-                    foreach (var membership in activeMembership)
-                    {
+                    foreach (var membership in MemberShips)
                         _unitOfWork.GetRepository<MemberShip>().Delete(membership);
-                    }
                 }
-                _unitOfWork.GetRepository<Member>().Delete(member);
-                var result = _unitOfWork.SaveChanges() >0 ;
-                if(result)
-                {
-                    _attachmentService.Delete(member.Photo, "members");
-                    return false;
-                }
-                return result;
+                _unitOfWork.GetRepository<Member>().Delete(Member);
+                bool IsDeleted = _unitOfWork.SaveChanges() > 0;
+                if (IsDeleted)
+                    _attachmentService.Delete(Member.Photo, "members");
+                return IsDeleted;
             }
-            catch (Exception)
+            catch
             {
                 return false;
             }
-                
+
         }
         #region Helper Methods
 
