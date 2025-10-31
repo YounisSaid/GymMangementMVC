@@ -3,8 +3,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-7 col-lg-7 col-12">
+@section Styles {
+    <link rel="stylesheet" href="~/css/homepage-mobile.css" />
+    <link rel="stylesheet" href="~/css/new-footer.css" />
+}
+
+<div class="row d-none d-md-flex align-items-center">
+    <div class="col-md-7 col-lg-7">
         <div class="info mt-4">
             <header class="text-black-alternative">
                 <h2 class="fw-bolder display-2 mb-4">
@@ -74,13 +79,87 @@
             </div>
         </div>
     </div>
-
-    <div class="col-md-5 col-12 order-first order-md-last d-flex justify-content-center">
+    <div class="col-md-5 d-flex justify-content-center">
         <div class="character">
             <img src="~/images/Theo Vance.jpg" alt="Theo Vance" class="img-fluid" />
         </div>
     </div>
 </div>
+
+<div class="row d-flex d-md-none mt-3">
+    <div class="col-12">
+        <header class="text-black-alternative text-center">
+            <h2 class="fw-bolder display-2 mb-4" id="mobile-hero-heading">
+                Your body can
+                <span class="text-primary-color">stand almost</span> anything
+            </h2>
+        </header>
+
+        <div class="character text-center mb-4">
+            <img src="~/images/Theo Vance.jpg" alt="Theo Vance" class="img-fluid" id="mobile-hero-image" />
+        </div>
+
+        <div class="info-text text-center mb-4">
+            <p class="mb-3 fs-5">
+                It's your mind that needs convincing. Push past your limits,
+                stay committed, and watch as your body transform into powerhouse of
+                strength and resilience. Start your journey today & truly
+                capable of!
+            </p>
+        </div>
+
+        <div class="stats-bar-mobile mb-4">
+            <div class="row g-3">
+                <div class="col-6">
+                    <div class="stat-mobile">
+                        <span class="fw-bolder fs-4 d-block">@Model.TotalMembers</span>
+                        <h3 class="fs-6 fw-normal">Total Members</h3>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-mobile">
+                        <span class="fw-bolder fs-4 d-block">@Model.ActiveMembers</span>
+                        <h3 class="fs-6 fw-normal">Active Members</h3>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-mobile">
+                        <span class="fw-bolder fs-4 d-block">@Model.TotalTrainers</span>
+                        <h3 class="fs-6 fw-normal">Trainers</h3>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-mobile">
+                        <span class="fw-bolder fs-4 d-block">@Model.UpcomingSessions</span>
+                        <h3 class="fs-6 fw-normal">Upcoming Sessions</h3>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-mobile">
+                        <span class="fw-bolder fs-4 d-block">@Model.OngoingSessions</span>
+                        <h3 class="fs-6 fw-normal">Ongoing Sessions</h3>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-mobile">
+                        <span class="fw-bolder fs-4 d-block">@Model.CompletedSessions</span>
+                        <h3 class="fs-6 fw-normal">Completed Sessions</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons my-4 d-flex flex-column align-items-center gap-3">
+            <button class="get-started bg-primary-color text-white btn rounded-5 fw-medium px-4 py-2 border-2 border-primary-color w-100">
+                Get Started
+            </button>
+            <button class="explore-more border-primary-color btn rounded-5 fw-medium px-4 py-2 border-2 text-primary-color fw-medium w-100">
+                Explore More
+            </button>
+        </div>
+    </div>
+</div>
+
 
 <main>
     <section class="about my-5 text-black-alternative">
@@ -260,72 +339,63 @@
                     </div>
                 </div>
             </div>
-    <footer class="mt-5">
-        <div class="bar bg-primary-color d-flex py-4 text-white fw-bolder align-items-center">
-            <p class="py-0 my-0 overflow-hidden text-nowrap">
-                outdoor & online trainers
-                <img src="~/images/star.svg" alt="star icon" /> personal training
-                <img src="~/images/star.svg" alt="star icon" /> live classes
-                <img src="~/images/star.svg" alt="star icon" /> personal trainers
-                <img src="~/images/star.svg" alt="star icon" /> personal training
-            </p>
-       
 
-        </div>
-
-
-            <div class="footer-content my-5">
+            <footer class="footer-dark">
                 <div class="container">
-                    <div class="row row-cols-2 row-cols-md-4 g-5">
-                        <div class="logo">
-                            <div class="inner">
-                                <div class="image">
-                                    <img src="~/images/logo.jpg" alt="our logo" />
-                                </div>
-                                <p class="fs-18 mt-2">
-                                    Push harder, go further. Your <br />
-                                    fitness journey starts today!
-                                </p>
+                    <div class="row gy-4">
+
+                        <div class="col-lg-4 col-md-6">
+                            <img src="~/images/logo.jpg" alt="Power Fitness Logo" class="footer-logo" />
+                            <p class="footer-tagline">
+                                Push harder, go further. Your fitness journey starts today!
+                            </p>
+                            <div class="social-icons">
+                                <a href="#"><i class="bi bi-facebook"></i></a>
+                                <a href="#"><i class="bi bi-instagram"></i></a>
+                                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                                <a href="#"><i class="bi bi-youtube"></i></a>
                             </div>
                         </div>
 
-                        <div class="contact">
-                            <h4 class="fw-bolder text-uppercase mb-4">contact us</h4>
-                            <ul>
-                                <li class="d-flex align-items-center gap-2">
-                                    <div class="icon">
-                                        <img src="~/images/phone icon.jpg" alt="phone icon" />
-                                    </div>
-                                    <p>+91 123 456 789</p>
-                                </li>
-
-                                <li class="d-flex align-items-center gap-2">
-                                    <div class="icon">
-                                        <img src="~/images/message icon.jpg" alt="message icon" />
-                                    </div>
-                                    <p>info@gmail.com</p>
-                                </li>
+                        <div class="col-lg-2 col-md-6">
+                            <h5 class="footer-heading">Quick Links</h5>
+                            <ul class="footer-links">
+                                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li><a asp-controller="Member" asp-action="Index">Members</a></li>
+                                <li><a asp-controller="Session" asp-action="Index">Session</a></li>
+                                <li><a asp-controller="MemberShip" asp-action="Index">MemberShip</a></li>
+                                <li><a asp-controller="Booking" asp-action="Index">Session Schedule</a></li>
                             </ul>
                         </div>
 
-                        <div class="time">
-                            <h4 class="fw-bolder text-uppercase mb-4">our gym timing</h4>
-                            <p>
-                                Mon - Fri : 08:00 AM - 10:00 PM <br />Sat - Sun : 08:00 AM -
-                                09:00 PM
-                            </p>
+                       
+
+                        <div class="col-lg-3 col-md-6">
+                            <h5 class="footer-heading">Contact Us</h5>
+                            <div class="contact-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>2715 Ash Dr. San Jose,<br>South Dakota 83475</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="bi bi-telephone-fill"></i>
+                                <span>+91 123 456 789</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="bi bi-envelope-fill"></i>
+                                <span>info@gmail.com</span>
+                            </div>
                         </div>
 
-                        <div class="location">
-                            <h4 class="fw-bolder text-uppercase mb-4">our location</h4>
-                            <p>
-                                2715 Ash Dr. San Jose, South <br />
-                                Dakota 83475
-                            </p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="footer-copyright">
+                                &copy; @DateTime.Now.Year Power Fitness. All Rights Reserved.
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
     </section>
 </main>
