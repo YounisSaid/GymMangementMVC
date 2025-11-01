@@ -94,4 +94,3 @@ Use the following credentials to access the application and explore the differen
 
 ---
 
-Would you like me to add a section about licensing or how others can contribute to the project?
