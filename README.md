@@ -52,7 +52,7 @@ Follow these steps to set up and run the project locally.
 
 ### Prerequisites
 
-* **.NET 8.0 SDK** (or newer)
+* **.NET 9.0 SDK** (or newer)
 * **SQL Server LocalDB** or a configured SQL Server instance
 * **Visual Studio** (recommended IDE)
 
@@ -60,7 +60,7 @@ Follow these steps to set up and run the project locally.
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [YOUR_REPOSITORY_URL]
+    git clone [[/YounisSaid/GymMangementMVC]](https://github.com/YounisSaid/GymMangementMVC)
     ```
 
 2.  **Configure Database Connection:**
