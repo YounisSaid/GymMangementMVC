@@ -60,11 +60,11 @@ Follow these steps to set up and run the project locally.
 
 1.  **Clone the Repository:**
     ```bash
- git clone https://github.com/YounisSaid/GymMangementMVC
+    git clone [https://github.com/YounisSaid/GymMangementMVC](https://github.com/YounisSaid/GymMangementMVC)
     ```
 
 2.  **Configure Database Connection:**
-    * Open `appsettings.json` and `appsettings.Development.json` in the `GymManagmentMVC` project.
+    * Open **`appsettings.json`** and **`appsettings.Development.json`** in the `GymManagmentMVC` project.
     * Update the `ConnectionStrings` section with your local SQL Server details.
 
 3.  **Run Migrations:**
@@ -93,4 +93,4 @@ Use the following credentials to access the application and explore the differen
 
 ---
 
-Is there anything else you'd like to include in this README, such as a section on contributing or licensing?
+If you're happy with this final version, I recommend adding a **License** section (e.g., MIT) to clearly define how others can use your code. Would you like me to add an MIT License boilerplate section?
