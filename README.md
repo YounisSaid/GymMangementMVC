@@ -60,7 +60,7 @@ Follow these steps to set up and run the project locally.
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [[/YounisSaid/GymMangementMVC]](https://github.com/YounisSaid/GymMangementMVC)
+git clone [https://github.com/YounisSaid/GymMangementMVC](https://github.com/YounisSaid/GymMangementMVC)
     ```
 
 2.  **Configure Database Connection:**
