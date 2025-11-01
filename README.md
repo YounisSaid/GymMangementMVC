@@ -17,6 +17,7 @@ This system provides a full suite of features necessary for modern gym managemen
 ### Additional Implemented Features
 
 * **Authentication & Authorization:** Integrated **Microsoft Identity Package** for secure user login and role-based access control.
+* **Member Search:** Added a new fast feature to search for members by their **Phone ID**.
 
 ---
 
@@ -93,4 +94,4 @@ Use the following credentials to access the application and explore the differen
 
 ---
 
-If you're happy with this final version, I recommend adding a **License** section (e.g., MIT) to clearly define how others can use your code. Would you like me to add an MIT License boilerplate section?
+Would you like me to add a section about licensing or how others can contribute to the project?
